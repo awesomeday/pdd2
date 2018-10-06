@@ -9,11 +9,13 @@
   "dependencies": {
     "@babel/runtime": "^7.1.2",
     "react": "16.5.0",
-    "react-native": "0.57.1"
+    "react-native": "0.57.1",
+    "react-navigation": "^2.17.0"
   },
   "devDependencies": {
     "@types/react": "^16.4.15",
     "@types/react-native": "^0.57.2",
+    "@types/react-navigation": "^2.0.24",
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.47.1",
