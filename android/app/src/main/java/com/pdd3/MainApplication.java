@@ -11,7 +11,9 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+import com.reactnativenavigation.NavigationApplication;
+
+public class MainApplication extends NavigationApplication  {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -21,8 +23,10 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
+      // Add additional packages you require here
+      // No need to add RnnPackage and MainReactPackage
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          // eg. new VectorIconsPackage()
       );
     }
 
@@ -31,6 +35,20 @@ public class MainApplication extends Application implements ReactApplication {
       return "index";
     }
   };
+
+  protected List<ReactPackage> getPackages() {
+    // Add additional packages you require here
+    // No need to add RnnPackage and MainReactPackage
+    return Arrays.<ReactPackage>asList(
+        // eg. new VectorIconsPackage()
+    );
+  }
+
+  @Override
+  public boolean isDebug() {
+    // Make sure you are using BuildConfig from your own application
+    return BuildConfig.DEBUG;
+  }
 
   @Override
   public ReactNativeHost getReactNativeHost() {
@@ -41,5 +59,15 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+  }
+
+  @Override
+  public List<ReactPackage> createAdditionalReactPackages() {
+    return getPackages();
+  }
+
+  @Override
+  public String getJSMainModuleName() {
+    return "index";
   }
 }
