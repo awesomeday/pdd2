@@ -8,8 +8,10 @@
 
 import React from 'react'
 import { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { 
+    createStackNavigator, createBottomTabNavigator, NavigationScreenProp, NavigationStateRoute 
+} from 'react-navigation';
 
 
 const instructions = Platform.select({
@@ -19,18 +21,43 @@ const instructions = Platform.select({
         'Shake or press menu button for dev menu',
 });
 
-class HomeScreen extends Component {
+type NavigationProps = {
+    navigation: NavigationScreenProp<NavigationStateRoute<any>>,
+};
+
+class HomeScreen extends Component<NavigationProps> {
+    openSettings() {
+        console.log(this.props);
+        this.props.navigation.navigate('Another');
+    }
+
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Home Screen</Text>
+                <Button title="Settings" onPress={() => this.openSettings()}/>
             </View>
         );
     }
 }
 
-const RootStack = createStackNavigator({
-    Home: HomeScreen
+class AnotherScreen extends Component {
+    render() {
+        return (
+            <View>
+                <Text>Anoter Screeen</Text>
+            </View>
+        );
+    }
+}
+
+// const RootStack = createStackNavigator({
+//     Home: { screen: HomeScreen }
+// });
+
+const RootStack = createBottomTabNavigator({
+    Home: { screen: HomeScreen },
+    Another: { screen: AnotherScreen }
 });
 
 export default class App extends Component {
