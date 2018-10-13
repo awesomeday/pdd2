@@ -22,12 +22,11 @@ const instructions = Platform.select({
 });
 
 type NavigationProps = {
-    navigation: NavigationScreenProp<NavigationStateRoute<any>>,
+    navigation: NavigationScreenProp<NavigationStateRoute<any>>;
 };
 
 class HomeScreen extends Component<NavigationProps> {
     openSettings() {
-        console.log(this.props);
         this.props.navigation.navigate('Another');
     }
 
