@@ -13,6 +13,9 @@ import {
     createStackNavigator, createBottomTabNavigator, NavigationScreenProp, NavigationStateRoute 
 } from 'react-navigation';
 
+import { container } from './ioc';
+import { IAnswerLogService } from './src/services';
+
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -27,7 +30,15 @@ type NavigationProps = {
 
 class HomeScreen extends Component<NavigationProps> {
     openSettings() {
-        this.props.navigation.navigate('Another');
+        // this.props.navigation.navigate('Another');
+        const service = container.get<IAnswerLogService>('answerLogService');
+        // service.save({ questionId: 'test', answerIndex: 42 })
+        //     .then((res) => {
+        //         console.log(res);
+        //     });
+
+        service.getLog().then((log) => console.log(log));
+
     }
 
     render() {

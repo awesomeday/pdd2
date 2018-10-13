@@ -1,15 +1,17 @@
-import { SQLiteDatabase } from 'react-native-sqlite-storage';
+import { AnswerLogEntry } from '../models';
+import { Connection } from 'typeorm/browser';
+import { IAnswerLogRepository } from './types';
+import { RepositoryBase } from './repository-base';
+import { injectable, inject } from 'inversify';
 
 
-interface IAnswerLogRepository {
-    save: (questionId: string, answerIndex: number) => void;
+@injectable()
+class AnswerLogRepository extends RepositoryBase<AnswerLogEntry> implements IAnswerLogRepository {
+    @inject('sqliteConnection') protected connection: Connection
+    constructor() {
+        super();
+        this.tableName = 'answerLog';
+    }
 }
 
-class AnswerLogRepository implements IAnswerLogRepository {
-    constructor(private database: SQLiteDatabase) {
-    }
-
-    save(questionId: string, answerIndex: number) {
-        // this.database.executeSql();
-    }
-}
+export { AnswerLogRepository };

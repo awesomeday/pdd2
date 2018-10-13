@@ -1,12 +1,31 @@
-import { Container } from "inversify";
-import { UserSettingsService } from './src/services/user-settings.service';
+import { Container } from 'inversify';
+import { Connection, getConnectionManager } from 'typeorm/browser';
 
-import { IUserSettingsService } from './src/services/types';
+import { IAnswerLogService, AnswerLogService } from './src/services';
+import { IAnswerLogRepository, AnswerLogRepository } from './src/repositories';
 
-import { TYPES } from './src/types';
+import { AnswerLogEntry } from './src/models';
 
 
 const container = new Container();
-container.bind<IUserSettingsService>(TYPES.userSettingsService).to(UserSettingsService);
+const sqliteConnection: Connection = getConnectionManager().create({
+    type: 'react-native',
+    database: 'awsmdPdd',
+    location: 'default',
+    logging: ['error', 'query', 'schema'],
+    synchronize: true,
+    entities: [
+        AnswerLogEntry
+    ]
+});
+
+container.bind<Connection>('sqliteConnection').toConstantValue(sqliteConnection);
+
+// container.bind<string>('sqliteConnection').toConstantValue('hello');
+container.bind<IAnswerLogRepository>('answerLogRepository').to(AnswerLogRepository).inSingletonScope();
+container.bind<IAnswerLogService>('answerLogService').to(AnswerLogService).inSingletonScope();
+
+
+
 
 export { container };

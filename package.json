@@ -15,9 +15,11 @@
     "react-navigation": "^2.17.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "reflect-metadata": "^0.1.12"
+    "reflect-metadata": "^0.1.12",
+    "typeorm": "^0.2.7"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.1.2",
     "@types/react": "^16.4.15",
     "@types/react-native": "^0.57.2",
     "@types/react-native-sqlite-storage": "^3.3.1",
