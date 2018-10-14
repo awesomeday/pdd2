@@ -5,7 +5,7 @@ class AnswerLogEntry {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('datetime')
+    @Column({ type: 'datetime', default: () => "NOW()" })
     timestamp?: Date;
 
     @Column('varchar')
