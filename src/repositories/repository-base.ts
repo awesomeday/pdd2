@@ -1,19 +1,19 @@
-import { Connection } from 'typeorm/browser';
+import { IConnectionProvider } from '../core/services';
 import { IRepository } from './types';
 import { injectable } from 'inversify';
 
 
 @injectable()
 class RepositoryBase<TEntity> implements IRepository<TEntity> {
-    protected connection: Connection;
+    protected connectionProvider: IConnectionProvider;
     protected tableName: string;
 
     constructor() {
     }
 
     save(entry: TEntity): Promise<TEntity> {
-        return this.connection.connect()
-            .then(() => this.connection.getRepository(this.tableName).save(entry));
+        return this.connect()
+            .then((connection) => connection.getRepository(this.tableName).save(entry));
     }
 
     clear(): Promise<void> {
@@ -21,8 +21,12 @@ class RepositoryBase<TEntity> implements IRepository<TEntity> {
     }
 
     getAll(): Promise<TEntity[]> {
-        return this.connection.connect()
-            .then(() => this.connection.getRepository<TEntity>(this.tableName).find());
+        return this.connect()
+            .then((connection) => connection.getRepository<TEntity>(this.tableName).find());
+    }
+
+    private connect() {
+        return this.connectionProvider.getConnection();
     }
 }
 

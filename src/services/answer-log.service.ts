@@ -6,7 +6,7 @@ import { injectable, inject } from 'inversify';
 
 @injectable()
 class AnswerLogService implements IAnswerLogService {
-    @inject('answerLogRepository') public answerLogRepository: IAnswerLogRepository;
+    @inject('IAnswerLogRepository') public answerLogRepository: IAnswerLogRepository;
     
     constructor() {
     }

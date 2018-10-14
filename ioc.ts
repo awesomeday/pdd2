@@ -5,9 +5,11 @@ import { IAnswerLogService, AnswerLogService } from './src/services';
 import { IAnswerLogRepository, AnswerLogRepository } from './src/repositories';
 
 import { AnswerLogEntry } from './src/models';
+import { ConnectionProvider, IConnectionProvider } from './src/core/services';
 
 
 const container = new Container();
+
 const sqliteConnection: Connection = getConnectionManager().create({
     type: 'react-native',
     database: 'awsmdPdd',
@@ -19,13 +21,10 @@ const sqliteConnection: Connection = getConnectionManager().create({
     ]
 });
 
-container.bind<Connection>('sqliteConnection').toConstantValue(sqliteConnection);
+const connectionProvider = new ConnectionProvider(sqliteConnection);
 
-// container.bind<string>('sqliteConnection').toConstantValue('hello');
-container.bind<IAnswerLogRepository>('answerLogRepository').to(AnswerLogRepository).inSingletonScope();
-container.bind<IAnswerLogService>('answerLogService').to(AnswerLogService).inSingletonScope();
-
-
-
+container.bind<IConnectionProvider>('IConnectionProvider').toConstantValue(connectionProvider);
+container.bind<IAnswerLogRepository>('IAnswerLogRepository').to(AnswerLogRepository).inSingletonScope();
+container.bind<IAnswerLogService>('IAnswerLogService').to(AnswerLogService).inSingletonScope();
 
 export { container };

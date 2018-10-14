@@ -34,7 +34,7 @@ type NavigationProps = {
 class HomeScreen extends Component<NavigationProps> {
     openSettings() {
         // this.props.navigation.navigate('Another');
-        const service = container.get<IAnswerLogService>('answerLogService');
+        const service = container.get<IAnswerLogService>('IAnswerLogService');
         // service.save({ questionId: 'test', answerIndex: 42 })
         //     .then((res) => {
         //         console.log(res);
