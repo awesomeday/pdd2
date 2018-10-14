@@ -24,6 +24,7 @@
     "@types/react-native": "^0.57.2",
     "@types/react-native-sqlite-storage": "^3.3.1",
     "@types/react-navigation": "^2.0.24",
+    "@types/react-redux": "^6.0.9",
     "babel-jest": "23.6.0",
     "babel-polyfill": "^6.26.0",
     "jest": "23.6.0",

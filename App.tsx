@@ -7,6 +7,7 @@
  */
 
 import React from 'react'
+import { Provider } from 'react-redux';
 import { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import { 
@@ -15,6 +16,8 @@ import {
 
 import { container } from './ioc';
 import { IAnswerLogService } from './src/services';
+
+import { store } from './src/store';
 
 
 const instructions = Platform.select({
@@ -72,6 +75,10 @@ const RootStack = createBottomTabNavigator({
 
 export default class App extends Component {
     render() {
-        return <RootStack />;
+        return (
+            <Provider store={store}>
+                <RootStack />
+            </Provider>
+        );
     }
 }
