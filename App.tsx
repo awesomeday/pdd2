@@ -18,6 +18,7 @@ import { container } from './ioc';
 import { IAnswerLogService } from './src/services';
 
 import { store } from './src/store';
+import { ThemeToggle } from './src/containers/theme-toggle/theme-toggle.component';
 
 
 const instructions = Platform.select({
@@ -49,6 +50,7 @@ class HomeScreen extends Component<NavigationProps> {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Home Screen</Text>
                 <Button title="Settings" onPress={() => this.openSettings()}/>
+                <ThemeToggle></ThemeToggle>
             </View>
         );
     }

@@ -5,5 +5,5 @@ import { Entity, Column } from 'typeorm/browser';
 @Entity()
 export class UserSettings {
     @Column()
-    colorTheme!: ColorTheme;
+    colorTheme: ColorTheme;
 }

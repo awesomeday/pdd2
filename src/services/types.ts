@@ -1,8 +1,10 @@
 import { AnswerLogEntry } from "../models/answer-log-entry.model";
+import { ColorTheme } from "../models";
+import { UserSettings } from "../models/user-settings.model";
 
 
 export interface IUserSettingsService {
-    a: number;
+    saveTheme(theme: ColorTheme): Promise<UserSettings>;
 }
 
 export interface IAnswerLogService {

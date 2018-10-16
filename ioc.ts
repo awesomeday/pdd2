@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { Connection, getConnectionManager } from 'typeorm/browser';
 
-import { IAnswerLogService, AnswerLogService } from './src/services';
+import { IAnswerLogService, AnswerLogService, IUserSettingsService, UserSettingsService } from './src/services';
 import { IAnswerLogRepository, AnswerLogRepository } from './src/repositories';
 
 import { AnswerLogEntry } from './src/models';
@@ -26,5 +26,7 @@ const connectionProvider = new ConnectionProvider(sqliteConnection);
 container.bind<IConnectionProvider>('IConnectionProvider').toConstantValue(connectionProvider);
 container.bind<IAnswerLogRepository>('IAnswerLogRepository').to(AnswerLogRepository).inSingletonScope();
 container.bind<IAnswerLogService>('IAnswerLogService').to(AnswerLogService).inSingletonScope();
+
+container.bind<IUserSettingsService>('IUserSettingsService').to(UserSettingsService).inSingletonScope();
 
 export { container };
