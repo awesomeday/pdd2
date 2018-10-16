@@ -4,16 +4,10 @@ import { Button } from 'react-native';
 import { ColorTheme } from '../../models';
 import { s } from './theme-toggle.styles';
 
-
-export type ValueProps = {
-    currentTheme: ColorTheme
+export type Props = {
+    currentTheme: ColorTheme;
+    onThemeChange: (theme: ColorTheme) => void;
 };
-
-export type ActionProps = {
-    onThemeChange: (theme: ColorTheme) => void
-};
-
-export type Props = ValueProps & ActionProps;
 
 export class ThemeToggleComponent extends Component<Props> {
     toggle() {
