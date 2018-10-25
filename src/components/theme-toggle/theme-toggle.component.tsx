@@ -4,7 +4,7 @@ import { Button } from 'react-native';
 import { ColorTheme } from '../../models';
 import { s } from './theme-toggle.styles';
 
-export type Props = {
+type Props = {
     currentTheme: ColorTheme;
     onThemeChange: (theme: ColorTheme) => void;
 };
@@ -16,7 +16,7 @@ export class ThemeToggleComponent extends Component<Props> {
 
     render() {
         return (
-            <Button color={s[this.props.currentTheme].backgroundColor} 
+            <Button color={s[this.props.currentTheme].backgroundColor}
                     title={this.props.currentTheme} onPress={() => this.toggle()}/>
         );
     }
