@@ -1,10 +1,13 @@
 import React from 'react';
 import { Component } from 'react';
 import { Button } from 'react-native';
-import { ColorTheme, StyleDefinition } from '../../theming';
+import { ColorTheme, StyleDefinition, ThemeDictionary } from '../../theming';
 import { themes, IThemeToggleStyle } from './theme-toggle.styles';
 import { connect } from 'react-redux';
 import { setTheme } from '../../store/user-settings/actions';
+
+import { store } from '../../store';
+import { Unsubscribe } from 'redux';
 
 
 type Props = {
@@ -13,12 +16,36 @@ type Props = {
     theme: StyleDefinition<IThemeToggleStyle>;
 };
 
-class ThemeToggleComponent extends Component<Props> {
+abstract class ThemedComponent<P = {}, S = {}, SS = any, T = any> extends Component<P, S, SS> {
+    private unsubscribe: Unsubscribe;
+    protected theme: StyleDefinition<T>;
+
+    constructor(props) {
+        super(props);
+
+        const themes = this.getThemes();
+
+        this.unsubscribe = store.subscribe(() => {
+            this.theme = themes[store.getState().userSettings.colorTheme]
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    protected abstract getThemes(): ThemeDictionary<T>;
+}
+
+class ThemeToggleComponent extends ThemedComponent<Props> {
+    protected getThemes = () => themes;
+
     toggle() {
         this.props.onThemeChange(this.props.currentTheme === ColorTheme.Light ? ColorTheme.Dark : ColorTheme.Light);
     }
 
     render() {
+        // this.theme
         // color={this.props.theme.examBtn.backgroundColor}
         return <Button
             title={this.props.currentTheme} onPress={() => this.toggle()} />;
