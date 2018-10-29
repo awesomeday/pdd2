@@ -1,4 +1,4 @@
-import { ColorTheme } from './color-theme';
+import { ColorTheme } from '../theming';
 import { Entity, Column } from 'typeorm/browser';
 
 
