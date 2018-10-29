@@ -16,7 +16,7 @@ type Props = {
     theme: StyleDefinition<IThemeToggleStyle>;
 };
 
-abstract class ThemedComponent<P = {}, S = {}, SS = any, T = any> extends Component<P, S, SS> {
+abstract class ThemedComponent<P = {}, T = any, S = {}, SS = any> extends Component<P, S, SS> {
     private unsubscribe: Unsubscribe;
     protected theme: StyleDefinition<T>;
 
@@ -37,10 +37,11 @@ abstract class ThemedComponent<P = {}, S = {}, SS = any, T = any> extends Compon
     protected abstract getThemes(): ThemeDictionary<T>;
 }
 
-class ThemeToggleComponent extends ThemedComponent<Props> {
+class ThemeToggleComponent extends ThemedComponent<Props, IThemeToggleStyle> {
     protected getThemes = () => themes;
 
     toggle() {
+        // this.theme.examBtn
         this.props.onThemeChange(this.props.currentTheme === ColorTheme.Light ? ColorTheme.Dark : ColorTheme.Light);
     }
 
